@@ -10,11 +10,27 @@ const Sidebar = (props) => {
         <Button onClick={props.onStartAddProject}>+ Add Project</Button>
       </div>
       <ul className="mt-8">
-        {props.projects.map((project) => (
-          <li key={project.id}>
-            <button className="w-full text-left px-2 py-1 rounded-sm my-1 text-stone-400 hover:text-stone-200 hover:bg-stone-800">{project.title}</button>
-          </li>
-        ))}
+        {props.projects.map((project) => {
+          let cssClasses =
+            "w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-800";
+
+          if (project.id === props.selectedProjectId) {
+            cssClasses += " bg-stone-800 text-stone-200";
+          } else {
+            cssClasses += " text-stone-400";
+          }
+
+          return (
+            <li key={project.id}>
+              <button
+                className={cssClasses}
+                onClick={() => props.onSelectProject(project.id)}
+              >
+                {project.title}
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </aside>
   );
